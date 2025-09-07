@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "No dependencies to install"
+  build:
+    commands:
+      - echo "Nothing to build, just preparing artifacts"
+
+artifacts:
+  files:
+    - index.html
+    - '**/*.css'
+    - '**/*.js'
+    - '**/*.png'
+    - '**/*.jpg'
+    - '**/*.gif'
+  base-directory: .
+  discard-paths: no
