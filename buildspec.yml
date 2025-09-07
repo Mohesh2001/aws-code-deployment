@@ -2,47 +2,69 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      python: 3.12  # Or 3.11 depending on your runtime
     commands:
-      - echo "Installing dependencies..."
-      - pip install --upgrade pip
-      - pip install -r requirement.txt -t .
-  
+      - echo "No dependencies to install"
   build:
     commands:
-      - echo "Preparing FastAPI app for deployment..."
-      # Optionally run tests
-      # - pytest
-      # If deploying to Lambda, package into a zip
-      - zip -r fastapi_app.zip . -x "*.git*" "*.venv*"
+      - echo "Nothing to build, just preparing artifacts"
 
 artifacts:
   files:
-    - '**/*'
+    - index.html
+    - '**/*.css'
+    - '**/*.js'
+    - '**/*.png'
+    - '**/*.jpg'
+    - '**/*.gif'
   base-directory: .
   discard-paths: no
-version: 0.2
 
-phases:
-  install:
-    runtime-versions:
-      python: 3.12  # Or 3.11 depending on your runtime
-    commands:
-      - echo "Installing dependencies..."
-      - pip install --upgrade pip
-      - pip install -r requirement.txt -t .
+
+# version: 0.2
+
+# phases:
+#   install:
+#     runtime-versions:
+#       python: 3.12  # Or 3.11 depending on your runtime
+#     commands:
+#       - echo "Installing dependencies..."
+#       - pip install --upgrade pip
+#       - pip install -r requirement.txt -t .
   
-  build:
-    commands:
-      - echo "Preparing FastAPI app for deployment..."
-      # Optionally run tests
-      # - pytest
-      # If deploying to Lambda, package into a zip
-      - zip -r fastapi_app.zip . -x "*.git*" "*.venv*"
+#   build:
+#     commands:
+#       - echo "Preparing FastAPI app for deployment..."
+#       # Optionally run tests
+#       # - pytest
+#       # If deploying to Lambda, package into a zip
+#       - zip -r fastapi_app.zip . -x "*.git*" "*.venv*"
 
-artifacts:
-  files:
-    - '**/*'
-  base-directory: .
-  discard-paths: no
+# artifacts:
+#   files:
+#     - '**/*'
+#   base-directory: .
+#   discard-paths: no
+# version: 0.2
+
+# phases:
+#   install:
+#     runtime-versions:
+#       python: 3.12  # Or 3.11 depending on your runtime
+#     commands:
+#       - echo "Installing dependencies..."
+#       - pip install --upgrade pip
+#       - pip install -r requirement.txt -t .
+  
+#   build:
+#     commands:
+#       - echo "Preparing FastAPI app for deployment..."
+#       # Optionally run tests
+#       # - pytest
+#       # If deploying to Lambda, package into a zip
+#       - zip -r fastapi_app.zip . -x "*.git*" "*.venv*"
+
+# artifacts:
+#   files:
+#     - '**/*'
+#   base-directory: .
+#   discard-paths: no
