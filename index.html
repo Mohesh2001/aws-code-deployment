@@ -1,152 +1,245 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login</title>
-  <style>
-    :root {
-      --bg: #0f172a;          /* slate-900 */
-      --card: #111827;        /* gray-900 */
-      --muted: #9ca3af;       /* gray-400 */
-      --text: #e5e7eb;        /* gray-200 */
-      --primary: #6366f1;     /* indigo-500 */
-      --primary-600: #5458ee; /* darker */
-      --danger: #ef4444;      /* red-500 */
-      --ring: rgba(99,102,241,.35);
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 10%, #1e293b 0%, transparent 70%),
-        radial-gradient(900px 500px at 90% 80%, #0b1022 0%, transparent 70%),
-        linear-gradient(180deg, #0b1020 0%, #0f172a 100%);
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-    .card {
-      width: 100%;
-      max-width: 400px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      box-shadow:
-        0 10px 30px rgba(0,0,0,0.4),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-      padding: 28px;
-    }
-    .header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
-    }
-    .logo {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: conic-gradient(from 180deg, #22d3ee, #6366f1, #a78bfa, #22d3ee);
-      box-shadow: 0 6px 20px rgba(99,102,241,.35);
-    }
-    h1 {
-      margin: 0; font-size: 1.25rem; letter-spacing: .2px;
-    }
-    p.sub {
-      margin: 0 0 18px; color: var(--muted); font-size: .95rem;
-    }
-    form { display: grid; gap: 14px; }
-    label { font-size: .9rem; color: #cbd5e1; margin-bottom: 6px; display: inline-block; }
-    .field {
-      position: relative;
-      display: grid; gap: 6px;
-    }
-    .input {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,.25);
-      background: rgba(2,6,23,.35);
-      color: var(--text);
-      outline: none;
-      transition: border .15s, box-shadow .15s, background .15s;
-    }
-    .input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--ring);
-      background: rgba(2,6,23,.55);
-    }
-    .input::placeholder { color: #94a3b8; }
-    .toggle {
-      position: absolute; right: 10px; top: 34px;
-      border: 0; background: none; color: var(--muted); cursor: pointer;
-      padding: 6px; border-radius: 8px;
-    }
-    .toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-    .row {
-      display: flex; justify-content: space-between; align-items: center; gap: 8px;
-      margin-top: 4px;
-    }
-    .row label { margin: 0; display: flex; align-items: center; gap: 8px; color: #cbd5e1; }
-    .row a { color: #a78bfa; text-decoration: none; }
-    .row a:hover { text-decoration: underline; }
-    .btn {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 0;
-      background: linear-gradient(180deg, var(--primary), var(--primary-600));
-      color: white; font-weight: 600; cursor: pointer;
-      box-shadow: 0 8px 24px rgba(99,102,241,.35);
-      transition: transform .06s ease-in-out, filter .15s;
-    }
-    .btn:active { transform: translateY(1px); }
-    .btn:disabled { opacity: .6; cursor: not-allowed; filter: grayscale(.1); }
-    .error {
-      color: var(--danger);
-      font-size: .85rem;
-      display: none;
-    }
-    .notice {
-      margin-top: 12px; font-size: .9rem; color: var(--muted); text-align: center;
-    }
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
-      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommunityShare - Preserving Indigenous Knowledge</title>
+   
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/app.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Fixed Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h2>CommunityShare</h2>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link" data-view="home">Home</a>
+                    <a href="#" class="nav-link" data-view="explore">Explore Map</a>
+                    <a href="#" class="nav-link" data-view="add">Add Knowledge</a>
+                    <a href="#" class="nav-link" data-view="browse">Browse</a>
+                </nav>
+                <button class="mobile-menu-btn">☰</button>
+            </div>
+        </div>
+    </header>
 
-  <main class="card" role="main" aria-labelledby="login-title">
-    <div class="header">
-      <div class="logo" aria-hidden="true"></div>
-      <div>
-        <h1 id="login-title">Welcome back</h1>
-        <p class="sub">Please sign in to continue</p>
-      </div>
+    <main class="main">
+        <!-- Home View -->
+        <section id="home-view" class="view active">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Preserving Indigenous Knowledge for Future Generations</h1>
+                        <p class="hero-description">
+                            CommunityShare is a digital archive where indigenous and local communities can safely preserve, 
+                            share, and celebrate their traditional knowledge, stories, and cultural practices.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" data-view="explore">Explore Knowledge</button>
+                            <button class="btn btn-secondary" data-view="add">Share Your Story</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="container">
+                    <h2 class="section-title">How It Works</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🗺️</div>
+                            <h3>Explore on Map</h3>
+                            <p>Discover traditional knowledge through an interactive map showing the geographical context of cultural practices.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📖</div>
+                            <h3>Share Stories</h3>
+                            <p>Contribute your community's knowledge, stories, and practices to preserve them for future generations.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>Search & Browse</h3>
+                            <p>Find specific knowledge items using our powerful search and filtering tools organized by categories.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explore Map View -->
+        <section id="explore-view" class="view">
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <div id="map" class="map"></div>
+                </div>
+                <div class="map-sidebar">
+                    <div class="sidebar-header">
+                        <h3>Knowledge Items</h3>
+                        <span class="item-count" id="item-count">0 items</span>
+                    </div>
+                    <div class="sidebar-content" id="map-items">
+                        <!-- Knowledge items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Knowledge View -->
+        <section id="add-view" class="view">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Share Your Knowledge</h2>
+                    <p class="form-description">Help preserve traditional knowledge by sharing stories, practices, and cultural wisdom from your community.</p>
+                    
+                    <form id="add-knowledge-form" class="knowledge-form" enctype="multipart/form-data" method="post">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="title">Title *</label>
+                                <input type="text" id="title" name="title" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="category">Category *</label>
+                                <select id="category" name="category" class="form-control" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Traditional Agriculture">Traditional Agriculture</option>
+                                    <option value="Traditional Medicine">Traditional Medicine</option>
+                                    <option value="Cultural Sites">Cultural Sites</option>
+                                    <option value="Oral Tradition">Oral Tradition</option>
+                                    <option value="Traditional Fishing">Traditional Fishing</option>
+                                    <option value="Environmental Management">Environmental Management</option>
+                                    <option value="Crafts & Arts">Crafts & Arts</option>
+                                    <option value="Spiritual Practices">Spiritual Practices</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="knowledge-type">Knowledge Type *</label>
+                                <select id="knowledge-type" name="knowledgeType" class="form-control" required>
+                                    <option value="">Select knowledge type</option>
+                                    <option value="Cultural Practice">Cultural Practice</option>
+                                    <option value="Plant Knowledge">Plant Knowledge</option>
+                                    <option value="Oral Tradition">Oral Tradition</option>
+                                    <option value="Environmental Management">Environmental Management</option>
+                                    <option value="Traditional Skills">Traditional Skills</option>
+                                    <option value="Spiritual Knowledge">Spiritual Knowledge</option>
+                                    <option value="Historical Sites">Historical Sites</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="location">Location *</label>
+                                <input type="text" id="location" name="location" class="form-control" placeholder="e.g., Rotorua, New Zealand" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="description">Brief Description *</label>
+                            <textarea id="description" name="description" class="form-control" rows="3" placeholder="A short description of this knowledge item..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="detailed-description">Detailed Description *</label>
+                            <textarea id="detailed-description" name="detailedDescription" class="form-control" rows="6" placeholder="Share the full story, traditional practices, cultural significance, and any important details..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="image">Upload Image *</label>
+                            <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Share Knowledge</button>
+                            <button type="button" class="btn btn-secondary" data-view="home">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Browse View -->
+        <section id="browse-view" class="view">
+            <div class="container">
+                <div class="browse-header">
+                    <h2>Browse Knowledge</h2>
+                    <div class="search-filters">
+                        <div class="search-group">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search knowledge items...">
+                        </div>
+                        <div class="filter-group">
+                            <select id="category-filter" class="form-control">
+                                <option value="">All Categories</option>
+                                <option value="Traditional Agriculture">Traditional Agriculture</option>
+                                <option value="Traditional Medicine">Traditional Medicine</option>
+                                <option value="Cultural Sites">Cultural Sites</option>
+                                <option value="Oral Tradition">Oral Tradition</option>
+                                <option value="Traditional Fishing">Traditional Fishing</option>
+                                <option value="Environmental Management">Environmental Management</option>
+                                <option value="Crafts & Arts">Crafts & Arts</option>
+                                <option value="Spiritual Practices">Spiritual Practices</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="knowledge-grid" id="knowledge-grid">
+                    <!-- Knowledge items will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Detail View -->
+        <section id="detail-view" class="view">
+            <div class="container">
+                <div class="detail-content" id="detail-content">
+                    <!-- Detail content will be populated here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>CommunityShare</h4>
+                    <p>Preserving indigenous knowledge for future generations.</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Quick Links</h5>
+                    <a href="#" data-view="home">Home</a>
+                    <a href="#" data-view="explore">Explore</a>
+                    <a href="#" data-view="browse">Browse</a>
+                </div>
+                <div class="footer-section">
+                    <h5>Community</h5>
+                    <a href="#" data-view="add">Share Knowledge</a>
+                    <a href="#">Guidelines</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CommunityShare. Respecting and preserving cultural heritage.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
     </div>
 
-    <form id="login-form" novalidate>
-      <div class="field">
-        <label for="email">Email</label>
-        <input class="input" id="email" name="email" type="email" inputmode="email"
-               placeholder="you@example.com" autocomplete="email" required />
-        <div id="email-error" class="error">Please enter a valid email address.</div>
-      </div>
-
-      <div class="field">
-        <label for="password">Password</label>
-        <input class="input" id="password" name="password" type="password"
-               placeholder="Your password" autocomplete="current-password" minlength="6" required />
-        <button type="button" class="toggle" id="togglePassword" aria-label="Show password">👁️</button>
-        <div id="password-error" class="error">Password must be at least 6 characters.</div>
-      </div>
-
-      <div class="row">
-        <label>
-          <input type="checkbox" id="remember" name="remember" />
-          Remember me
-        </label>
-        <a href="#" id="forgot-link" title="Reset your password">Forgot password
+    <script src="app.js"></script>
+</body>
+</html>
