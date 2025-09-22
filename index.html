@@ -1,245 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CommunityShare - Preserving Indigenous Knowledge</title>
-   
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/app.js"></script>
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Share – Landing</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/config.js" ></script>
+  <script src="/js/common.js" defer></script>
 </head>
 <body>
-    <!-- Fixed Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h2>CommunityShare</h2>
-                </div>
-                <nav class="nav">
-                    <a href="#" class="nav-link" data-view="home">Home</a>
-                    <a href="#" class="nav-link" data-view="explore">Explore Map</a>
-                    <a href="#" class="nav-link" data-view="add">Add Knowledge</a>
-                    <a href="#" class="nav-link" data-view="browse">Browse</a>
-                </nav>
-                <button class="mobile-menu-btn">☰</button>
-            </div>
+  <header class="site-header">
+    <div class="brand">Community Share</div>
+    <nav>
+      <a class="nav-link" href="/main.html">Explore</a>
+      <a class="nav-link primary" href="/post.html">Post Knowledge</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Share & discover geotagged community knowledge</h1>
+      <p class="muted">Search by place, category, or knowledge type and explore on an interactive map.</p>
+
+      <form id="landing-search" class="card search-card">
+        <div class="grid grid-2">
+          <label class="field">
+            <span>Country</span>
+            <input type="text" id="country" placeholder="e.g., New Zealand" />
+          </label>
+          <label class="field">
+            <span>City</span>
+            <input type="text" id="city" placeholder="e.g., Waikato" />
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <select id="category">
+              <option value="">Any</option>
+              <option>Music</option>
+              <option>Plant</option>
+              <option>Art</option>
+              <option>Place</option>
+              <option>Food</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Knowledge Type</span>
+            <select id="type">
+              <option value="">Any</option>
+              <option>Traditional</option>
+              <option>Medicinal</option>
+              <option>Modern</option>
+              <option>Historical</option>
+            </select>
+          </label>
         </div>
-    </header>
+        <button type="submit" class="btn primary w-full">Search</button>
+      </form>
+    </section>
+  </main>
 
-    <main class="main">
-        <!-- Home View -->
-        <section id="home-view" class="view active">
-            <div class="hero">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1 class="hero-title">Preserving Indigenous Knowledge for Future Generations</h1>
-                        <p class="hero-description">
-                            CommunityShare is a digital archive where indigenous and local communities can safely preserve, 
-                            share, and celebrate their traditional knowledge, stories, and cultural practices.
-                        </p>
-                        <div class="hero-buttons">
-                            <button class="btn btn-primary" data-view="explore">Explore Knowledge</button>
-                            <button class="btn btn-secondary" data-view="add">Share Your Story</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="features">
-                <div class="container">
-                    <h2 class="section-title">How It Works</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">🗺️</div>
-                            <h3>Explore on Map</h3>
-                            <p>Discover traditional knowledge through an interactive map showing the geographical context of cultural practices.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">📖</div>
-                            <h3>Share Stories</h3>
-                            <p>Contribute your community's knowledge, stories, and practices to preserve them for future generations.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🔍</div>
-                            <h3>Search & Browse</h3>
-                            <p>Find specific knowledge items using our powerful search and filtering tools organized by categories.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <footer class="site-footer">© <span id="year"></span> Community Share</footer>
 
-        <!-- Explore Map View -->
-        <section id="explore-view" class="view">
-            <div class="map-container">
-                <div class="map-wrapper">
-                    <div id="map" class="map"></div>
-                </div>
-                <div class="map-sidebar">
-                    <div class="sidebar-header">
-                        <h3>Knowledge Items</h3>
-                        <span class="item-count" id="item-count">0 items</span>
-                    </div>
-                    <div class="sidebar-content" id="map-items">
-                        <!-- Knowledge items will be populated here -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Add Knowledge View -->
-        <section id="add-view" class="view">
-            <div class="container">
-                <div class="form-container">
-                    <h2>Share Your Knowledge</h2>
-                    <p class="form-description">Help preserve traditional knowledge by sharing stories, practices, and cultural wisdom from your community.</p>
-                    
-                    <form id="add-knowledge-form" class="knowledge-form" enctype="multipart/form-data" method="post">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label" for="title">Title *</label>
-                                <input type="text" id="title" name="title" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="category">Category *</label>
-                                <select id="category" name="category" class="form-control" required>
-                                    <option value="">Select a category</option>
-                                    <option value="Traditional Agriculture">Traditional Agriculture</option>
-                                    <option value="Traditional Medicine">Traditional Medicine</option>
-                                    <option value="Cultural Sites">Cultural Sites</option>
-                                    <option value="Oral Tradition">Oral Tradition</option>
-                                    <option value="Traditional Fishing">Traditional Fishing</option>
-                                    <option value="Environmental Management">Environmental Management</option>
-                                    <option value="Crafts & Arts">Crafts & Arts</option>
-                                    <option value="Spiritual Practices">Spiritual Practices</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="knowledge-type">Knowledge Type *</label>
-                                <select id="knowledge-type" name="knowledgeType" class="form-control" required>
-                                    <option value="">Select knowledge type</option>
-                                    <option value="Cultural Practice">Cultural Practice</option>
-                                    <option value="Plant Knowledge">Plant Knowledge</option>
-                                    <option value="Oral Tradition">Oral Tradition</option>
-                                    <option value="Environmental Management">Environmental Management</option>
-                                    <option value="Traditional Skills">Traditional Skills</option>
-                                    <option value="Spiritual Knowledge">Spiritual Knowledge</option>
-                                    <option value="Historical Sites">Historical Sites</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label" for="location">Location *</label>
-                                <input type="text" id="location" name="location" class="form-control" placeholder="e.g., Rotorua, New Zealand" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="description">Brief Description *</label>
-                            <textarea id="description" name="description" class="form-control" rows="3" placeholder="A short description of this knowledge item..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="detailed-description">Detailed Description *</label>
-                            <textarea id="detailed-description" name="detailedDescription" class="form-control" rows="6" placeholder="Share the full story, traditional practices, cultural significance, and any important details..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label" for="image">Upload Image *</label>
-                            <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Share Knowledge</button>
-                            <button type="button" class="btn btn-secondary" data-view="home">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Browse View -->
-        <section id="browse-view" class="view">
-            <div class="container">
-                <div class="browse-header">
-                    <h2>Browse Knowledge</h2>
-                    <div class="search-filters">
-                        <div class="search-group">
-                            <input type="text" id="search-input" class="form-control" placeholder="Search knowledge items...">
-                        </div>
-                        <div class="filter-group">
-                            <select id="category-filter" class="form-control">
-                                <option value="">All Categories</option>
-                                <option value="Traditional Agriculture">Traditional Agriculture</option>
-                                <option value="Traditional Medicine">Traditional Medicine</option>
-                                <option value="Cultural Sites">Cultural Sites</option>
-                                <option value="Oral Tradition">Oral Tradition</option>
-                                <option value="Traditional Fishing">Traditional Fishing</option>
-                                <option value="Environmental Management">Environmental Management</option>
-                                <option value="Crafts & Arts">Crafts & Arts</option>
-                                <option value="Spiritual Practices">Spiritual Practices</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="knowledge-grid" id="knowledge-grid">
-                    <!-- Knowledge items will be populated here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Knowledge Detail View -->
-        <section id="detail-view" class="view">
-            <div class="container">
-                <div class="detail-content" id="detail-content">
-                    <!-- Detail content will be populated here -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>CommunityShare</h4>
-                    <p>Preserving indigenous knowledge for future generations.</p>
-                </div>
-                <div class="footer-section">
-                    <h5>Quick Links</h5>
-                    <a href="#" data-view="home">Home</a>
-                    <a href="#" data-view="explore">Explore</a>
-                    <a href="#" data-view="browse">Browse</a>
-                </div>
-                <div class="footer-section">
-                    <h5>Community</h5>
-                    <a href="#" data-view="add">Share Knowledge</a>
-                    <a href="#">Guidelines</a>
-                    <a href="#">Contact</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CommunityShare. Respecting and preserving cultural heritage.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Loading Overlay -->
-    <div id="loading" class="loading-overlay hidden">
-        <div class="loading-spinner"></div>
-        <p>Loading...</p>
-    </div>
-
-    <script src="app.js"></script>
+  <script>
+    const cfg = window.APP_CONFIG;
+    console.log("Config:", cfg.BACKEND_BASE_URL);
+    $(function(){
+      $('#year').text(new Date().getFullYear());
+      $('#landing-search').on('submit', function(e){
+        e.preventDefault();
+        const params = $.param({
+          country: $('#country').val().trim(),
+          city: $('#city').val().trim(),
+          category: $('#category').val(),
+          type: $('#type').val()
+        });
+		$.get(`${cfg.BACKEND_BASE_URL}/search`, params, function(data) {
+		// Store results in sessionStorage for Main Page
+		sessionStorage.setItem("searchResults", JSON.stringify(data));
+		window.location.href = "main.html";
+        });
+		
+      });
+    });
+  </script>
 </body>
 </html>
