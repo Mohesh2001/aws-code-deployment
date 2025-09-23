@@ -6,7 +6,7 @@ import mysql.connector
 
 
 app = FastAPI(
-    title="Plant Healing Assets API",
+    title="Plant Healing Assets FastAPI",
     description="Login with hardcoded credentials and fetch user-related asset records from MySQL.",
     version="1.0.0",
 )
@@ -20,7 +20,7 @@ DB_CONFIG = {
 }
 
 # ---------- Auth ----------
-HARDCODED_USERNAME = "Mohesh"
+HARDCODED_USERNAME = "Akil"
 HARDCODED_PASSWORD = "Password@123"
 ISSUED_TOKEN = "static-token-123"
 
