@@ -1,19 +1,31 @@
-#FROM python:3.12-slim
+# Use an official Python runtime as a base image
+FROM python:3.13-slim
 
-#ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
 
-#WORKDIR /app
-#COPY requirements.txt .
-#RUN pip install --upgrade pip && pip install -r requirements.txt
+# Set working directory in the container
+WORKDIR /app
 
-#COPY . .
-#EXPOSE 8000
-# If your entry is app/main.py with FastAPI app named "app": app.main:app
-# If your entry is main.py with FastAPI app named "app": main:app
-#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-# OLD:
-# FROM python:3.12-slim
-# NEW (AWS mirror of Docker Hub):
-FROM public.ecr.aws/docker/library/python:3.12-slim
+# Install system dependencies required for building Python packages
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file first to leverage Docker cache
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install -r requirements.txt
+
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port FastAPI will run on
+EXPOSE 8000
+
+# Command to run the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
