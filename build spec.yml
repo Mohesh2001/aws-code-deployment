@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Nothing to install for static site."
+  build:
+    commands:
+      - echo "No build step."
+artifacts:
+  files:
+    - index.html
+    - main.html
+    - post.html
+    - css/**/*
+    - js/**/*
+    - images/**/*        # if you have images
+  discard-paths: no
