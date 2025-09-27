@@ -1,19 +1,35 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
-    destination: /home/ubuntu/myapp
+    destination: /opt/app/current
+    overwrite: true
+
+permissions:
+  - object: /opt/app/current
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    mode: 755
+    type:
+      - file
+      - directory
 
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies.sh
+    - location: codedeploy/before_install.sh
       timeout: 300
-      runas: ubuntu
+      runas: root
+  AfterInstall:
+    - location: codedeploy/after_install.sh
+      timeout: 600
+      runas: root
   ApplicationStart:
-    - location: scripts/start_server.sh
+    - location: codedeploy/start.sh
       timeout: 300
-      runas: ubuntu
-  ApplicationStop:
-    - location: scripts/stop_server.sh
+      runas: root
+  ValidateService:
+    - location: codedeploy/validate.sh
       timeout: 300
-      runas: ubuntu
+      runas: root
