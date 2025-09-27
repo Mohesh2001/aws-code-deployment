@@ -1,3 +1,4 @@
+
 version: 0.2
 phases:
   install:
@@ -5,19 +6,37 @@ phases:
       - echo "Nothing to install for static site."
   build:
     commands:
-      - echo "No build step."
+      - echo "Creating CloudFront invalidation..."
+      - aws cloudfront create-invalidation \
+          --distribution-id EZRMGXS9NAP23 \
+          --paths "/*"
 artifacts:
   files:
-    - index.html
-    - main.html
-    - post.html
-    - css/**/*
-    - js/**/*
-    - images/**/*        # if you have images
-  discard-paths: no
+      - index.html
+      - main.html
+      - post.html
+      - css/**/*
+      - js/**/*
+      - images/**/*        # if you have images
+    discard-paths: no
 
-
-
+# version: 0.2
+# phases:
+#   install:
+#     commands:
+#       - echo "Nothing to install for static site."
+#   build:
+#     commands:
+#       - echo "No build step."
+# artifacts:
+#   files:
+#     - index.html
+#     - main.html
+#     - post.html
+#     - css/**/*
+#     - js/**/*
+#     - images/**/*        # if you have images
+#   discard-paths: no
 
 # version: 0.2
 
